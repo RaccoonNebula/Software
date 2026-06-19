@@ -15,6 +15,7 @@ import FormularioVehiculo from './components/FormularioVehiculo';
 import DeclaracionConjunta from './components/DeclaracionConjunta';
 import RequisitosSection from './components/RequisitosSection';
 import ContactoSection from './components/ContactoSection';
+import ChatWidget from './components/ChatWidget';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('inicio');
@@ -217,6 +218,8 @@ export default function App() {
         onClose={() => setLoginModalOpen(false)}
         onLogin={handleLogin}
       />
+
+      <ChatWidget />
     </div>
   );
 }

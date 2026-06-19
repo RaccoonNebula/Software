@@ -1,4 +1,5 @@
-import { Baby, Users } from 'lucide-react';
+import { Baby, Users, Check } from 'lucide-react';
+import { useState } from 'react';
 import SeccionFormulario from './SeccionFormulario';
 
 interface FormulariosMenoresProps {
@@ -48,7 +49,24 @@ export default function FormulariosMenores({
     </div>
   );
 
-  const formularioCompleto = (
+  const [submitted, setSubmitted] = useState(false);
+
+  const formularioCompleto = submitted ? (
+    <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 text-center max-w-2xl mx-auto">
+      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <Check className="h-8 w-8 text-green-600" />
+      </div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-3">¡Autorización Enviada!</h2>
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+        <p className="text-[#1e3a8a] font-medium">
+          Su solicitud estará resuelta en un plazo de 5 a 10 días hábiles.
+        </p>
+      </div>
+      <button onClick={() => setSubmitted(false)} className="bg-pink-500 text-white px-6 py-3 rounded-lg hover:bg-pink-600 transition-colors">
+        Nueva Solicitud
+      </button>
+    </div>
+  ) : (
     <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-pink-500 text-white p-3 rounded-lg">
@@ -60,7 +78,7 @@ export default function FormulariosMenores({
         </div>
       </div>
 
-      <form className="space-y-6">
+      <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-6">
         <h3 className="font-bold text-gray-800">Datos del Menor</h3>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -94,6 +112,7 @@ export default function FormulariosMenores({
             </label>
             <input
               type="date"
+              min="1900-01-01"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
               required
             />
@@ -150,6 +169,7 @@ export default function FormulariosMenores({
             </label>
             <input
               type="date"
+              min="1900-01-01"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
               required
             />
@@ -161,6 +181,7 @@ export default function FormulariosMenores({
             </label>
             <input
               type="date"
+              min="1900-01-01"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
               required
             />
@@ -236,6 +257,7 @@ export default function FormulariosMenores({
   );
 
   return (
+
     <SeccionFormulario
       titulo="Autorización de Menores de Edad"
       descripcion="Documentación para viajes de niños y adolescentes"

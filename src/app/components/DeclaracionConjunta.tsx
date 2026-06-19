@@ -60,9 +60,14 @@ export default function DeclaracionConjunta() {
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             ¡Declaración Enviada Exitosamente!
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 mb-4">
             Tu declaración conjunta SAG/Aduanas ha sido recibida y está siendo procesada.
           </p>
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+            <p className="text-[#1e3a8a] font-medium">
+              Su solicitud estará resuelta en un plazo de 5 a 10 días hábiles.
+            </p>
+          </div>
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
             <div className="font-bold text-[#1e3a8a] mb-2">Código de Solicitud</div>
             <div className="text-2xl font-mono font-bold text-gray-900">ADU-2026-{Math.floor(Math.random() * 90000) + 10000}</div>
@@ -188,6 +193,7 @@ export default function DeclaracionConjunta() {
               <input
                 type="date"
                 required
+                min="1900-01-01"
                 value={formData.fechaNacimiento}
                 onChange={(e) => setFormData({ ...formData, fechaNacimiento: e.target.value })}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -267,6 +273,7 @@ export default function DeclaracionConjunta() {
               <input
                 type="date"
                 required
+                min="1900-01-01"
                 value={formData.fechaLlegada}
                 onChange={(e) => setFormData({ ...formData, fechaLlegada: e.target.value })}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"

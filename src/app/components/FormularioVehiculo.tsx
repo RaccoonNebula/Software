@@ -1,4 +1,4 @@
-import { Car } from 'lucide-react';
+import { Car, Check } from 'lucide-react';
 import { useState } from 'react';
 import SeccionFormulario from './SeccionFormulario';
 
@@ -46,6 +46,7 @@ export default function FormularioVehiculo({
       </div>
     </div>
   );
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     patente: '',
     marca: '',
@@ -58,10 +59,25 @@ export default function FormularioVehiculo({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Formulario enviado correctamente. Se ha registrado tu solicitud de ' + formData.tipoSolicitud + ' del vehículo.');
+    setSubmitted(true);
   };
 
-  const formularioCompleto = (
+  const formularioCompleto = submitted ? (
+    <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 text-center max-w-2xl mx-auto">
+      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <Check className="h-8 w-8 text-green-600" />
+      </div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-3">¡Vehículo Registrado!</h2>
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+        <p className="text-[#1e3a8a] font-medium">
+          Su solicitud estará resuelta en un plazo de 5 a 10 días hábiles.
+        </p>
+      </div>
+      <button onClick={() => setSubmitted(false)} className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors">
+        Nueva Solicitud
+      </button>
+    </div>
+  ) : (
     <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-orange-500 text-white p-3 rounded-lg">

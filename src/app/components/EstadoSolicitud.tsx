@@ -7,15 +7,7 @@ export default function EstadoSolicitud() {
 
   const handleBuscar = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulación de búsqueda
-    setResultado({
-      codigo: codigoSolicitud || 'ADU-2026-00123',
-      estado: 'aprobada',
-      solicitante: 'Juan Pérez González',
-      fechaSolicitud: '2026-05-05',
-      fechaRespuesta: '2026-05-07',
-      detalles: 'Todos los documentos han sido validados correctamente.',
-    });
+    setResultado({ noEncontrada: true, codigo: codigoSolicitud });
   };
 
   const estadoConfig = {
@@ -104,62 +96,19 @@ export default function EstadoSolicitud() {
           {/* Results */}
           {resultado && (
             <div className="bg-white rounded-2xl shadow-xl p-8">
-              <div className="space-y-6">
-                {/* Status Badge */}
-                <div className={`flex items-center gap-3 ${estadoConfig[resultado.estado as keyof typeof estadoConfig].bg} ${estadoConfig[resultado.estado as keyof typeof estadoConfig].border} border p-4 rounded-xl`}>
-                  {(() => {
-                    const Icon = estadoConfig[resultado.estado as keyof typeof estadoConfig].icon;
-                    return <Icon className={`h-6 w-6 ${estadoConfig[resultado.estado as keyof typeof estadoConfig].color}`} />;
-                  })()}
-                  <div>
-                    <div className={`font-bold ${estadoConfig[resultado.estado as keyof typeof estadoConfig].color}`}>
-                      {estadoConfig[resultado.estado as keyof typeof estadoConfig].label}
+              <div className="flex items-center gap-3 bg-gray-50 border border-gray-200 p-6 rounded-xl">
+                <XCircle className="h-8 w-8 text-gray-400 flex-shrink-0" />
+                <div>
+                  <div className="font-bold text-gray-700 text-lg">Solicitud no encontrada</div>
+                  {resultado.codigo && (
+                    <div className="text-sm text-gray-500 mt-1">
+                      No se encontró ninguna solicitud con el código <span className="font-mono font-semibold">{resultado.codigo}</span>.
                     </div>
-                    <div className="text-sm text-gray-600">{resultado.detalles}</div>
+                  )}
+                  <div className="text-sm text-gray-500 mt-1">
+                    Verifique el código ingresado e intente nuevamente.
                   </div>
                 </div>
-
-                {/* Details */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <div className="text-sm text-gray-500 mb-1">Código de Solicitud</div>
-                    <div className="font-semibold text-gray-900">{resultado.codigo}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-500 mb-1">Solicitante</div>
-                    <div className="font-semibold text-gray-900">{resultado.solicitante}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-500 mb-1">Fecha de Solicitud</div>
-                    <div className="font-semibold text-gray-900">{resultado.fechaSolicitud}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-500 mb-1">Fecha de Respuesta</div>
-                    <div className="font-semibold text-gray-900">{resultado.fechaRespuesta}</div>
-                  </div>
-                </div>
-
-                {/* QR Code */}
-                {resultado.estado === 'aprobada' && (
-                  <div className="border-t pt-6">
-                    <div className="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl">
-                      <div className="w-32 h-32 bg-white rounded-xl shadow-lg flex items-center justify-center">
-                        <QrCode className="h-20 w-20 text-[#1e3a8a]" />
-                      </div>
-                      <div className="flex-1 text-center md:text-left">
-                        <h3 className="font-bold text-lg text-gray-900 mb-2">
-                          Tu Código QR está Listo
-                        </h3>
-                        <p className="text-gray-600 mb-4">
-                          Presenta este código en el control aduanero para agilizar tu paso
-                        </p>
-                        <button className="bg-[#1e3a8a] text-white px-6 py-2 rounded-lg hover:bg-[#1e40af] transition-all">
-                          Descargar QR
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           )}

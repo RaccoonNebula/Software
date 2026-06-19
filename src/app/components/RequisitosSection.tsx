@@ -1,4 +1,5 @@
 import { FileText, CheckCircle, AlertCircle, Download, ExternalLink } from 'lucide-react';
+import { downloadTestPDF } from '../utils/downloadPDF';
 
 export default function RequisitosSection() {
   const requisitosGenerales = [
@@ -164,6 +165,7 @@ export default function RequisitosSection() {
                 ].map((doc, index) => (
                   <button
                     key={index}
+                    onClick={() => downloadTestPDF()}
                     className="w-full flex items-center justify-between bg-white/10 hover:bg-white/20 backdrop-blur-sm px-4 py-3 rounded-lg transition-all text-left"
                   >
                     <span className="text-sm">{doc}</span>

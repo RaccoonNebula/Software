@@ -1,4 +1,5 @@
-import { Leaf, AlertTriangle } from 'lucide-react';
+import { Leaf, AlertTriangle, Check } from 'lucide-react';
+import { useState } from 'react';
 import SeccionFormulario from './SeccionFormulario';
 
 interface FormulariosSAGProps {
@@ -49,7 +50,24 @@ export default function FormulariosSAG({
       </div>
     </div>
   );
-  const formularioCompleto = (
+  const [submitted, setSubmitted] = useState(false);
+
+  const formularioCompleto = submitted ? (
+    <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 text-center max-w-2xl mx-auto">
+      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <Check className="h-8 w-8 text-green-600" />
+      </div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-3">¡Declaración SAG Enviada!</h2>
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+        <p className="text-[#1e3a8a] font-medium">
+          Su solicitud estará resuelta en un plazo de 5 a 10 días hábiles.
+        </p>
+      </div>
+      <button onClick={() => setSubmitted(false)} className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors">
+        Nueva Declaración
+      </button>
+    </div>
+  ) : (
     <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
       <div className="flex items-center gap-3 mb-6">
         <div className="bg-green-500 text-white p-3 rounded-lg">
@@ -70,7 +88,7 @@ export default function FormulariosSAG({
         </div>
       </div>
 
-      <form className="space-y-6">
+      <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-6">
         <div>
           <label className="block font-medium text-gray-700 mb-2">
             ¿Qué tipo de productos lleva? *
@@ -139,6 +157,7 @@ export default function FormulariosSAG({
   );
 
   return (
+
     <SeccionFormulario
       titulo="Formularios SAG"
       descripcion="Servicio Agrícola y Ganadero - Declaración de productos"
